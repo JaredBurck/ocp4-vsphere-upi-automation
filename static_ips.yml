@@ -7,19 +7,6 @@
     - name: Run all the common tasks
       import_role:
         name: common
-- hosts: webservers
-  gather_facts: False
-  environment:
-    PATH: "{{ playbook_dir }}/bin:{{ ansible_env.PATH }}"
-  tasks:
-    - name: Copy over generated ignition files to webserver
-      import_role:
-        name: webserver
-        tasks_from: copy_ign_files
-    - name: Download the installer raw.gz file to webserver
-      import_role:
-        name: webserver
-        tasks_from: download_raw_installer_files
 - hosts: localhost
   gather_facts: False
   environment:
