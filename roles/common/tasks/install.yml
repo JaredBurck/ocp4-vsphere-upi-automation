@@ -1,18 +1,3 @@
-    - name: Generate the ignition manifests
-      command: "openshift-install create manifests --dir={{ playbook_dir }}/install-dir" # noqa 301
-
-    - name: Apply the patch to set mastersSchedulable to false
-      patch:
-        src: "cluster-scheduler-02-config.yml.patch"
-        dest: "{{ playbook_dir }}/install-dir/manifests/cluster-scheduler-02-config.yml"
-
-    - name: Remove Master Machine manifests
-      file:
-        path: "{{ item }}"
-        state: absent
-      with_fileglob:
-        - "{{ playbook_dir }}/install-dir/openshift/99_openshift-cluster-api_master-machines-*.yaml"
-
     - name: Remove Worker MachineSet manifest
       file:
         path: "{{ playbook_dir }}/install-dir/openshift/99_openshift-cluster-api_worker-machineset-0.yaml"

@@ -1,15 +1,3 @@
-  - name: Download Openshift 4 ISO file as rhcos-installer.iso
-    get_url:
-      url: "{{ download.iso }}"
-      dest: "{{ iso_dir }}/rhcos-installer.iso"
-
-  - name: Get the sha265sum of the rhcos-installer.iso file
-    stat:
-      get_checksum: yes
-      checksum_algorithm: sha256
-      path: "{{ iso_dir }}/rhcos-installer.iso"
-    register: st
-
   - name: Create the iso mount path (if one doesn't exist already)
     file:
       path: "{{ iso_mount_path | default('/tmp/'+st.stat.checksum) }}"
